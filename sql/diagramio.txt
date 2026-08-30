@@ -1,0 +1,51 @@
+table products{
+ id_product integer [primary key]
+ name varchar
+ category varchar
+ price decimal
+ custo decimal
+
+}
+
+
+table customers{
+  id_customer integer [primary key]
+  customer_name varchar
+  country varchar
+  registration_date date
+}
+
+
+table store{
+  id_store integer [primary key]
+  store_name varchar
+  city varchar
+  country varchar 
+}
+
+
+table sales{
+  id_sale integer [primary key]
+  id_customer integer 
+  id_store integer
+  payment_method varchar
+}
+
+
+table items_sales{
+  id_item_sale integer [primary key]
+  id_sale integer 
+  id_product integer
+  quantity integer 
+  unity_price decimal 
+  discount decimal
+}
+
+Ref: sales.id_customer > customers.id_customer
+Ref: sales.id_store > store.id_store
+Ref: items_sales.id_sale > sales.id_sale
+Ref: items_sales.id_product > products.id_product
+
+
+
+
