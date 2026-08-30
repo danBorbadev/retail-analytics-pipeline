@@ -3,9 +3,6 @@ import random
 import os
 
 
-# ============================================================
-# CONFIGURAÇÕES
-# ============================================================
 
 NUM_SALES = 50000
 
@@ -17,33 +14,20 @@ SALES_OUTPUT = "data/raw/sales.csv"
 ITEMS_OUTPUT = "data/raw/items_sales.csv"
 
 
-# ============================================================
-# CARREGAR DADOS EXISTENTES
-# ============================================================
 
 df_customers = pd.read_csv(CUSTOMERS_FILE)
 df_stores = pd.read_csv(STORES_FILE)
 df_products = pd.read_csv(PRODUCTS_FILE)
 
 
-# ============================================================
-# LISTAS DE IDs
-# ============================================================
-
 customer_ids = df_customers["id_customer"].tolist()
 store_ids = df_stores["id_store"].tolist()
 
 
-# ============================================================
-# PRODUTOS
-# ============================================================
-
 products = df_products.to_dict("records")
 
 
-# ============================================================
-# PRODUTOS POR CATEGORIA
-# ============================================================
+
 
 products_by_category = {}
 
@@ -57,16 +41,10 @@ for product in products:
     products_by_category[category].append(product)
 
 
-# ============================================================
-# CATEGORIAS
-# ============================================================
+
 
 categories = list(products_by_category.keys())
 
-
-# ============================================================
-# FUNÇÃO PARA ESCOLHER PRODUTO
-# ============================================================
 
 def choose_product():
 
@@ -87,10 +65,6 @@ def choose_product():
         products_by_category[category]
     )
 
-
-# ============================================================
-# FUNÇÃO PARA DEFINIR QUANTIDADE
-# ============================================================
 
 def generate_quantity(product):
 
@@ -127,10 +101,6 @@ def generate_quantity(product):
         )[0]
 
 
-# ============================================================
-# FUNÇÃO PARA GERAR DESCONTO
-# ============================================================
-
 def generate_discount(price):
 
     discount_probability = random.random()
@@ -159,11 +129,6 @@ def generate_discount(price):
             random.uniform(80, min(300, price * 0.15)),
             2
         )
-
-
-# ============================================================
-# FUNÇÃO PARA PRODUTOS COMPLEMENTARES
-# ============================================================
 
 def choose_related_product(main_product, selected_products):
 
@@ -242,9 +207,6 @@ def choose_related_product(main_product, selected_products):
     )
 
 
-# ============================================================
-# GERAR SALES
-# ============================================================
 
 sales = []
 items_sales = []
@@ -254,10 +216,6 @@ item_sale_id = 1
 
 for sale_id in range(1, NUM_SALES + 1):
 
-    # --------------------------------------------------------
-    # CLIENTE E LOJA
-    # --------------------------------------------------------
-
     customer_id = random.choice(
         customer_ids
     )
@@ -266,9 +224,6 @@ for sale_id in range(1, NUM_SALES + 1):
         store_ids
     )
 
-    # --------------------------------------------------------
-    # FORMA DE PAGAMENTO
-    # --------------------------------------------------------
 
     payment_method = random.choices(
 
@@ -289,9 +244,6 @@ for sale_id in range(1, NUM_SALES + 1):
     )[0]
 
 
-    # --------------------------------------------------------
-    # REGISTRO DA VENDA
-    # --------------------------------------------------------
 
     sales.append({
 
@@ -305,10 +257,6 @@ for sale_id in range(1, NUM_SALES + 1):
 
     })
 
-
-    # --------------------------------------------------------
-    # QUANTIDADE DE PRODUTOS NA VENDA
-    # --------------------------------------------------------
 
     number_of_products = random.choices(
 
@@ -328,20 +276,12 @@ for sale_id in range(1, NUM_SALES + 1):
     selected_products = []
 
 
-    # --------------------------------------------------------
-    # PRIMEIRO PRODUTO
-    # --------------------------------------------------------
-
     first_product = choose_product()
 
     selected_products.append(
         first_product["id_product"]
     )
 
-
-    # --------------------------------------------------------
-    # ADICIONAR ITEM
-    # --------------------------------------------------------
 
     quantity = generate_quantity(
         first_product
@@ -372,10 +312,6 @@ for sale_id in range(1, NUM_SALES + 1):
 
     item_sale_id += 1
 
-
-    # --------------------------------------------------------
-    # OUTROS PRODUTOS
-    # --------------------------------------------------------
 
     for _ in range(number_of_products - 1):
 
@@ -432,10 +368,6 @@ for sale_id in range(1, NUM_SALES + 1):
         item_sale_id += 1
 
 
-# ============================================================
-# DATAFRAMES
-# ============================================================
-
 df_sales = pd.DataFrame(
     sales
 )
@@ -445,19 +377,6 @@ df_items_sales = pd.DataFrame(
 )
 
 
-# ============================================================
-# CRIAR PASTA
-# ============================================================
-
-os.makedirs(
-    "data/raw",
-    exist_ok=True
-)
-
-
-# ============================================================
-# EXPORTAR SALES
-# ============================================================
 
 df_sales.to_csv(
 
@@ -470,10 +389,6 @@ df_sales.to_csv(
 )
 
 
-# ============================================================
-# EXPORTAR ITEMS SALES
-# ============================================================
-
 df_items_sales.to_csv(
 
     ITEMS_OUTPUT,
@@ -485,39 +400,4 @@ df_items_sales.to_csv(
 )
 
 
-# ============================================================
-# RESULTADOS
-# ============================================================
 
-print("\n====================================")
-print("       DADOS GERADOS")
-print("====================================")
-
-print(
-    f"\nVendas: {len(df_sales)}"
-)
-
-print(
-    f"Itens vendidos: {len(df_items_sales)}"
-)
-
-print(
-    f"\nMédia de itens por venda: "
-    f"{len(df_items_sales) / len(df_sales):.2f}"
-)
-
-print("\nFormas de pagamento:")
-
-print(
-    df_sales["payment_method"].value_counts()
-)
-
-print("\nArquivos gerados:")
-
-print(
-    SALES_OUTPUT
-)
-
-print(
-    ITEMS_OUTPUT
-)

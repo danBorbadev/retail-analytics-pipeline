@@ -3,27 +3,13 @@ import random
 import os
 
 
-# ============================================================
-# CONFIGURAÇÕES
-# ============================================================
-
 SALES_FILE = "data/raw/sales.csv"
 PRODUCTS_FILE = "data/raw/products.csv"
 
 OUTPUT_FILE = "data/raw/items_sales.csv"
 
-
-# ============================================================
-# CARREGAR OS CSVs
-# ============================================================
-
 df_sales = pd.read_csv(SALES_FILE)
 df_products = pd.read_csv(PRODUCTS_FILE)
-
-
-# ============================================================
-# TRANSFORMAR PRODUCTS EM DICIONÁRIOS
-# ============================================================
 
 products = df_products.to_dict("records")
 
@@ -48,9 +34,6 @@ for product in products:
 categories = list(products_by_category.keys())
 
 
-# ============================================================
-# RELAÇÃO ENTRE CATEGORIAS
-# ============================================================
 
 related_categories = {
 
@@ -91,10 +74,6 @@ related_categories = {
 }
 
 
-# ============================================================
-# ESCOLHER PRIMEIRO PRODUTO
-# ============================================================
-
 def choose_first_product():
 
     category = random.choices(
@@ -118,10 +97,6 @@ def choose_first_product():
     )
 
 
-# ============================================================
-# ESCOLHER PRODUTO RELACIONADO
-# ============================================================
-
 def choose_related_product(
     main_product,
     selected_product_ids
@@ -135,7 +110,6 @@ def choose_related_product(
     )
 
 
-    # Mantém apenas categorias existentes
     possible_categories = [
 
         category
@@ -189,10 +163,6 @@ def choose_related_product(
     )
 
 
-# ============================================================
-# DEFINIR QUANTIDADE
-# ============================================================
-
 def generate_quantity(product):
 
     category = product["category"]
@@ -237,10 +207,6 @@ def generate_quantity(product):
             weights=[65, 20, 10, 4, 1]
         )[0]
 
-
-# ============================================================
-# DEFINIR DESCONTO
-# ============================================================
 
 def generate_discount(price):
 
@@ -289,9 +255,7 @@ def generate_discount(price):
         )
 
 
-# ============================================================
-# GERAR ITEMS SALES
-# ============================================================
+
 
 items_sales = []
 
@@ -305,9 +269,6 @@ for _, sale in df_sales.iterrows():
     )
 
 
-    # --------------------------------------------------------
-    # QUANTIDADE DE PRODUTOS DIFERENTES NA VENDA
-    # --------------------------------------------------------
 
     number_of_products = random.choices(
 
@@ -324,9 +285,7 @@ for _, sale in df_sales.iterrows():
     )[0]
 
 
-    # --------------------------------------------------------
-    # PRODUTO PRINCIPAL
-    # --------------------------------------------------------
+
 
     main_product = choose_first_product()
 
@@ -338,9 +297,6 @@ for _, sale in df_sales.iterrows():
     }
 
 
-    # --------------------------------------------------------
-    # ADICIONAR PRODUTO PRINCIPAL
-    # --------------------------------------------------------
 
     quantity = generate_quantity(
         main_product
@@ -377,9 +333,7 @@ for _, sale in df_sales.iterrows():
     id_item_sale += 1
 
 
-    # --------------------------------------------------------
-    # ADICIONAR PRODUTOS COMPLEMENTARES
-    # --------------------------------------------------------
+
 
     for _ in range(
         number_of_products - 1
@@ -399,7 +353,7 @@ for _, sale in df_sales.iterrows():
         )
 
 
-        # Segurança contra duplicidade
+ 
         if product_id in selected_product_ids:
 
             continue
@@ -443,18 +397,10 @@ for _, sale in df_sales.iterrows():
         id_item_sale += 1
 
 
-# ============================================================
-# DATAFRAME
-# ============================================================
-
 df_items_sales = pd.DataFrame(
     items_sales
 )
 
-
-# ============================================================
-# ORGANIZAR COLUNAS
-# ============================================================
 
 df_items_sales = df_items_sales[
 
@@ -470,60 +416,9 @@ df_items_sales = df_items_sales[
 ]
 
 
-# ============================================================
-# CRIAR DIRETÓRIO
-# ============================================================
-
-os.makedirs(
-    "data/raw",
-    exist_ok=True
-)
-
-
-# ============================================================
-# EXPORTAR CSV
-# ============================================================
-
 df_items_sales.to_csv(
-
     OUTPUT_FILE,
-
     index=False,
-
     encoding="utf-8-sig"
 
-)
-
-
-# ============================================================
-# RESULTADOS
-# ============================================================
-
-print("\n====================================")
-print("       ITEMS SALES GERADO")
-print("====================================")
-
-print(
-    f"\nTotal de vendas: {len(df_sales)}"
-)
-
-print(
-    f"Total de itens: {len(df_items_sales)}"
-)
-
-print(
-    f"Média de itens por venda: "
-    f"{len(df_items_sales) / len(df_sales):.2f}"
-)
-
-print("\nPrimeiros registros:\n")
-
-print(
-    df_items_sales.head(20)
-)
-
-print("\nArquivo gerado:")
-
-print(
-    OUTPUT_FILE
 )
