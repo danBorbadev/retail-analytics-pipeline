@@ -1,0 +1,120 @@
+﻿id_customer,customer_name,state,registration_date
+1,Eloah da Mata,AC,2025-04-23
+2,Clara Garcia,PR,2025-04-03
+3,Enrico Cavalcante,RR,2025-07-06
+4,Enzo Ferreira,RR,2025-12-18
+5,Dr. Rafael Siqueira,PB,2025-01-02
+6,Mirella Cavalcante,AM,2025-06-16
+7,Pedro Henrique Novais,MG,2025-10-28
+8,Henry Gabriel Martins,PA,2025-05-06
+9,Lavínia Melo,TO,2026-01-18
+10,Eduardo Souza,AL,2025-07-03
+11,Sr. João Gabriel Sousa,ES,2026-05-03
+12,Ana Julia Pastor,PE,2025-06-13
+13,Juliana da Rosa,DF,2025-03-17
+14,Valentina Moura,PB,2026-03-21
+15,Enzo Gabriel Gomes,PB,2025-08-17
+16,Maria Luiza Silveira,RJ,2025-09-21
+17,Ana Sophia Cirino,TO,2026-03-30
+18,Clarice Macedo,ES,2024-09-02
+19,Davi Machado,PA,2025-11-28
+20,Davi Luiz Novais,MA,2026-03-17
+21,Ana da Paz,RJ,2024-10-25
+22,Vinicius Sousa,PB,2024-12-08
+23,Sra. Nicole da Mata,RJ,2025-09-15
+24,Gael Cassiano,RS,2026-01-10
+25,Amanda Monteiro,PR,2026-02-21
+26,Isabel Carvalho,RS,2024-10-06
+27,Sra. Eduarda Rocha,RN,2025-12-01
+28,Alexandre Vargas,PB,2026-01-24
+29,Sra. Sara Sampaio,PE,2025-06-30
+30,Amanda Gomes,AP,2024-12-21
+31,José Miguel Câmara,ES,2026-01-22
+32,Isadora Costela,AP,2025-12-01
+33,Lucas Gabriel Castro,CE,2026-03-09
+34,Noah Ramos,TO,2024-12-19
+35,Agatha Dias,MA,2026-04-05
+36,Sra. Sophia Mendes,PR,2026-02-26
+37,Gabriel Monteiro,ES,2025-08-19
+38,Srta. Maria Eduarda Rios,AM,2025-02-19
+39,Henry da Luz,SP,2024-11-09
+40,Matteo Macedo,SE,2024-11-24
+41,Vitor Hugo Castro,AC,2025-03-21
+42,Marcelo Novaes,MS,2025-04-03
+43,Thiago Campos,MG,2025-01-02
+44,Maria Laura Sousa,AM,2025-05-03
+45,Dr. Enzo Gabriel Cavalcanti,AP,2026-03-22
+46,Leonardo Macedo,SC,2025-05-16
+47,Vitor Costa,PI,2025-06-25
+48,Isabelly Caldeira,AL,2025-07-31
+49,Bárbara Duarte,MT,2025-10-26
+50,Otávio da Cruz,SE,2026-05-11
+51,Maria Isis Ferreira,AL,2026-03-20
+52,Maria Julia Dias,GO,2025-06-26
+53,Alexia Fogaça,RN,2025-11-05
+54,Ana Beatriz Abreu,MT,2025-11-07
+55,Thales Farias,SE,2025-04-19
+56,Murilo Monteiro,MT,2026-03-28
+57,Dra. Aylla Lima,PR,2025-07-15
+58,Pietro da Mota,RN,2024-10-22
+59,Thales Abreu,MA,2024-12-04
+60,Gustavo Henrique Sá,MG,2025-09-19
+61,Sophia Carvalho,BA,2025-07-10
+62,Stella Azevedo,SE,2026-01-26
+63,Matteo da Cruz,AC,2025-12-12
+64,Srta. Catarina Pereira,DF,2025-08-01
+65,Mirella Araújo,AM,2024-09-20
+66,Ian Pinto,BA,2025-06-08
+67,Kevin Garcia,PR,2025-08-23
+68,Sr. João Guilherme Cardoso,PA,2025-03-24
+69,Lavínia Camargo,MA,2026-01-24
+70,Danilo Brito,MG,2025-01-12
+71,Stephany da Rosa,AM,2025-03-05
+72,Dr. Cauã Nunes,CE,2025-12-25
+73,Marcos Vinicius da Rocha,PI,2026-03-03
+74,Benicio Monteiro,MA,2025-07-30
+75,Gabriela Moraes,SP,2025-03-06
+76,Pedro Pastor,CE,2025-02-18
+77,Calebe da Mata,PE,2025-10-16
+78,João Guilherme Guerra,AM,2024-09-04
+79,Amanda Andrade,AM,2025-11-07
+80,Milena Leão,MA,2025-02-08
+81,Marina Barbosa,MG,2024-10-13
+82,Maria Vitória Cunha,RO,2024-11-17
+83,Emanuella Moraes,MA,2025-09-07
+84,Bruna Camargo,AC,2025-06-15
+85,Valentina Barbosa,GO,2024-11-27
+86,Ana Beatriz Nunes,RJ,2025-03-09
+87,Nicolas Sá,MA,2025-03-25
+88,Lucas Gabriel Rodrigues,AC,2025-07-16
+89,Alexandre Brito,PR,2024-10-10
+90,Noah Duarte,PA,2025-01-29
+91,Valentim da Luz,MA,2024-10-22
+92,Davi Luiz Pinto,PB,2025-08-05
+93,Kaique Cirino,MS,2025-03-20
+94,Antony Nogueira,SE,2025-06-24
+95,Sr. João Lucas Novais,SC,2025-02-12
+96,Maitê Sampaio,MS,2025-01-06
+97,Ana Julia Marques,PE,2025-11-11
+98,Yasmin Abreu,BA,2025-12-11
+99,Sr. Pietro Cavalcante,SC,2025-01-22
+100,Olivia Dias,AC,2025-01-06
+101,Ísis Sousa,MA,2025-11-13
+102,Ester Sá,PE,2025-09-22
+103,Maria Isis Pastor,PR,2025-06-27
+104,Luara Pinto,RJ,2026-02-04
+105,Sr. Lucas Oliveira,MG,2024-10-26
+106,Mariah Aparecida,PE,2025-09-29
+107,Ana Vitória Teixeira,TO,2025-09-20
+108,Augusto Rodrigues,MA,2024-12-14
+109,Ana Lívia da Paz,MA,2026-01-20
+110,André Vasconcelos,GO,2026-01-01
+111,Ayla Rocha,AM,2025-09-29
+112,Felipe Cunha,PA,2024-09-15
+113,Léo Pires,RR,2025-01-27
+114,Alana Barros,RJ,2026-01-02
+115,Erick Cassiano,AL,2025-03-28
+116,Samuel Garcia,RN,2026-02-25
+117,Leonardo Leão,MA,2026-02-21
+118,Maria Eduarda Almeida,AP,2024-10-11
+119,Melissa da Mota,PI,2025-11-12

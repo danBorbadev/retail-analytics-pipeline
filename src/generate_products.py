@@ -1,8 +1,14 @@
 from faker import Faker
 import pandas as pd
 import random
+import os
 
 fake = Faker("pt_BR")
+
+
+# ============================================================
+# CATÁLOGO BASE
+# ============================================================
 
 products_catalog = {
 
@@ -69,35 +75,238 @@ products_catalog = {
     ]
 }
 
+
+# ============================================================
+# VARIAÇÕES POR CATEGORIA
+# ============================================================
+
+variations = {
+
+    "Smartphones": [
+        ("128GB", 1.00),
+        ("256GB", 1.10),
+        ("512GB", 1.25),
+        ("128GB - Azul", 1.00),
+        ("128GB - Preto", 1.00),
+    ],
+
+    "Periféricos": [
+        ("Preto", 1.00),
+        ("Branco", 1.02),
+        ("Cinza", 1.02),
+        ("RGB", 1.08),
+        ("Wireless", 1.20),
+    ],
+
+    "Monitores": [
+        ("24\"", 1.00),
+        ("27\"", 1.15),
+        ("27\" - 144Hz", 1.25),
+        ("27\" - 165Hz", 1.30),
+        ("32\"", 1.45),
+    ],
+
+    "Games": [
+        ("Standard", 1.00),
+        ("Digital", 0.95),
+        ("Bundle", 1.12),
+        ("+ Jogo", 1.15),
+        ("+ Controle", 1.18),
+    ],
+
+    "Acessórios": [
+        ("Preto", 1.00),
+        ("Branco", 1.02),
+        ("Azul", 1.02),
+        ("Premium", 1.10),
+        ("Kit 2 unidades", 1.75),
+    ],
+
+    "Áudio": [
+        ("Preto", 1.00),
+        ("Branco", 1.02),
+        ("Azul", 1.02),
+        ("Vermelho", 1.02),
+        ("Premium", 1.10),
+    ],
+
+    "Cadeiras": [
+        ("Preta", 1.00),
+        ("Cinza", 1.02),
+        ("Branca", 1.03),
+        ("Azul", 1.03),
+        ("Vermelha", 1.03),
+    ]
+}
+
+
+# ============================================================
+# FUNÇÃO PARA ADICIONAR PRODUTO
+# ============================================================
+
 products = []
 
-for i in range(1,201):
-    category = random.choice(list(products_catalog.keys()))
 
-    product_name, base_price = random.choice(
-        products_catalog[category]
+def add_product(name, category, base_price, variation_multiplier):
+
+    # Pequena variação comercial no preço
+    price_variation = random.uniform(0.97, 1.03)
+
+    price = round(
+        base_price * variation_multiplier * price_variation,
+        2
     )
 
-    custo = round(base_price * random.uniform(0.65, 0.85), 2)
-    price = round(base_price * random.uniform(0.90, 1.10), 2)
+    # Margem de lucro baseada no preço do produto
+    if price < 200:
+        margin = random.uniform(0.20, 0.40)
+
+    elif price < 1000:
+        margin = random.uniform(0.18, 0.35)
+
+    elif price < 3000:
+        margin = random.uniform(0.15, 0.28)
+
+    else:
+        margin = random.uniform(0.10, 0.22)
+
+    custo = round(
+        price * (1 - margin),
+        2
+    )
 
     products.append({
-        "id_product": i,
-        "name": product_name,
+        "name": name,
         "category": category,
         "price": price,
         "custo": custo
     })
 
+
+# ============================================================
+# GERANDO OS PRODUTOS
+# ============================================================
+
+for category, catalog in products_catalog.items():
+
+    category_variations = variations[category]
+
+    for product_name, base_price in catalog:
+
+        for variation_name, multiplier in category_variations:
+
+            # Evita nomes estranhos como:
+            # "Monitor Samsung T350 24 24\""
+            if variation_name in product_name:
+                final_name = product_name
+
+            else:
+                final_name = f"{product_name} {variation_name}"
+
+            add_product(
+                name=final_name,
+                category=category,
+                base_price=base_price,
+                variation_multiplier=multiplier
+            )
+
+
+# ============================================================
+# DATAFRAME
+# ============================================================
+
 df_products = pd.DataFrame(products)
 
+
+# ============================================================
+# LIMITAR PARA 200 PRODUTOS
+# ============================================================
+
+df_products = df_products.sample(
+    n=200,
+    random_state=42
+).reset_index(drop=True)
+
+
+# Criar ID depois de selecionar os produtos
+df_products.insert(
+    0,
+    "id_product",
+    range(1, len(df_products) + 1)
+)
+
+
+# ============================================================
+# ORGANIZAR COLUNAS
+# ============================================================
+
+df_products = df_products[
+    [
+        "id_product",
+        "name",
+        "category",
+        "price",
+        "custo"
+    ]
+]
+
+
+# ============================================================
+# ORDENAÇÃO
+# ============================================================
+
+df_products = df_products.sort_values(
+    by=["category", "name"]
+).reset_index(drop=True)
+
+
+# Recriar IDs depois da ordenação
+df_products["id_product"] = range(
+    1,
+    len(df_products) + 1
+)
+
+
+# ============================================================
+# VISUALIZAÇÃO
+# ============================================================
+
+print("\n===== PRODUTOS =====\n")
 print(df_products)
 
 
-# Gerar CSV
+print("\n===== QUANTIDADE POR CATEGORIA =====\n")
+print(
+    df_products["category"].value_counts()
+)
+
+
+print("\n===== TOTAL DE PRODUTOS =====\n")
+print(
+    len(df_products)
+)
+
+
+# ============================================================
+# CRIAR PASTA DATA/RAW
+# ============================================================
+
+os.makedirs(
+    "data/raw",
+    exist_ok=True
+)
+
+
+# ============================================================
+# EXPORTAR CSV
+# ============================================================
 
 df_products.to_csv(
     "data/raw/products.csv",
     index=False,
     encoding="utf-8-sig"
 )
+
+
+print("\nCSV gerado com sucesso!")
+print("Arquivo: data/raw/products.csv")
